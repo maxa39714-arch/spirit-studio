@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Trending — Spirit Studio</title>
+<link rel="icon" href="assets/logo.jpg" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="brand">
+    <img src="assets/logo.jpg" alt="Spirit Studio" />
+    <span class="brand-word"><span>SPIRIT</span> <span class="flame-text">STUDIO</span></span>
+  </a>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="genres.html">Genres</a>
+    <a href="trending.html" class="active">Trending</a>
+    <a href="latest.html">Latest Episodes</a>
+  </nav>
+  <div class="header-actions" id="headerActions"></div>
+</header>
+
+<section class="genres-hero">
+  <h1>Trending <span class="flame-text">Now</span></h1>
+  <p>What everyone's watching on Spirit Studio this week.</p>
+</section>
+
+<section class="genre-grid-section">
+  <div class="poster-grid" id="pageGrid"></div>
+</section>
+
+<script type="module" src="js/browse-page.js" data-source="trending"></script>
+</body>
+</html>

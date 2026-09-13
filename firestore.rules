@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          "Ck623292krish@gmail.com",
+          "maxa39714@gmail.com"
+        ];
+    }
+
+    // Anyone can read series & episodes (public viewer site).
+    // Only admin accounts can create, edit, or delete.
+    match /series/{seriesId} {
+      allow read: if true;
+      allow write: if isAdmin();
+
+      match /episodes/{episodeId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+    }
+  }
+}

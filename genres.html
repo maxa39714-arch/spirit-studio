@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Genres — Spirit Studio</title>
+<link rel="icon" href="assets/logo.jpg" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="brand">
+    <img src="assets/logo.jpg" alt="Spirit Studio" />
+    <span class="brand-word"><span>SPIRIT</span> <span class="flame-text">STUDIO</span></span>
+  </a>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="genres.html" class="active">Genres</a>
+    <a href="trending.html">Trending</a>
+    <a href="latest.html">Latest Episodes</a>
+  </nav>
+  <div class="header-actions" id="headerActions"></div>
+</header>
+
+<section class="genres-hero">
+  <h1>Browse by <span class="flame-text">Genre</span></h1>
+  <p>Pick a genre to see every series that fits it — all in one place.</p>
+</section>
+
+<div class="genre-tabs">
+  <div class="genre-scroll" id="genreScroll">
+    <button class="chip active" data-genre="all">All</button>
+    <button class="chip" data-genre="action">Action</button>
+    <button class="chip" data-genre="isekai">Isekai</button>
+    <button class="chip" data-genre="fantasy">Fantasy</button>
+    <button class="chip" data-genre="romance">Romance</button>
+    <button class="chip" data-genre="shounen">Shounen</button>
+    <button class="chip" data-genre="slice">Slice of Life</button>
+    <button class="chip" data-genre="horror">Horror</button>
+    <button class="chip" data-genre="scifi">Sci-Fi</button>
+  </div>
+</div>
+
+<section class="genre-grid-section">
+  <div class="genre-grid-head">
+    <h2 id="genreGridTitle">All Series</h2>
+    <span class="genre-count" id="genreCount"></span>
+  </div>
+  <div class="poster-grid" id="genrePosterGrid"></div>
+</section>
+
+<script type="module" src="js/genres-page.js"></script>
+</body>
+</html>

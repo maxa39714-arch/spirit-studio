@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Spirit Studio — Watch Anime Online</title>
+<meta name="description" content="Spirit Studio — stream your favourite anime series, sub &amp; dub, free and fast." />
+<link rel="icon" href="assets/logo.jpg" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="siteHeader">
+  <a href="home.html" class="brand">
+    <img src="assets/logo.jpg" alt="Spirit Studio" />
+    <span class="brand-word"><span>SPIRIT</span> <span class="flame-text">STUDIO</span></span>
+  </a>
+
+  <nav class="main-nav">
+    <a href="home.html" class="active">Home</a>
+    <a href="genres.html">Genres</a>
+    <a href="trending.html">Trending</a>
+    <a href="latest.html">Latest Episodes</a>
+  </nav>
+
+  <div class="header-actions" id="headerActions">
+    <button class="icon-btn" aria-label="Search" id="searchBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="menu-toggle icon-btn" aria-label="Open menu" id="menuToggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-panel">
+    <button class="drawer-close icon-btn" id="drawerClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="home.html">Home</a>
+    <a href="genres.html">Genres</a>
+    <a href="trending.html">Trending</a>
+    <a href="latest.html">Latest Episodes</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="heroSection">
+  <div class="hero-content">
+    <span class="hero-badge">✦ Newly Added</span>
+    <h1 class="hero-title" id="heroTitle">Welcome to <span class="flame-text">Spirit Studio</span></h1>
+    <p class="hero-desc" id="heroDesc">Series added by the admin will appear here. Check back soon for new anime.</p>
+    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-actions" id="heroActions" style="display:none;">
+      <a href="#" class="btn btn-primary" id="heroWatchBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch Now
+      </a>
+      <a href="#" class="btn btn-ghost" id="heroInfoBtn">More Info</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GENRE FILTER ================= -->
+<div class="genre-bar" id="genres">
+  <div class="genre-scroll" id="genreScroll">
+    <button class="chip active" data-genre="all">All</button>
+    <button class="chip" data-genre="action">Action</button>
+    <button class="chip" data-genre="isekai">Isekai</button>
+    <button class="chip" data-genre="fantasy">Fantasy</button>
+    <button class="chip" data-genre="romance">Romance</button>
+    <button class="chip" data-genre="shounen">Shounen</button>
+    <button class="chip" data-genre="slice">Slice of Life</button>
+    <button class="chip" data-genre="horror">Horror</button>
+    <button class="chip" data-genre="scifi">Sci-Fi</button>
+  </div>
+</div>
+
+<main>
+  <!-- ================= TRENDING ================= -->
+  <section class="rail" id="trending">
+    <div class="rail-head">
+      <h2 class="rail-title">Trending Now</h2>
+      <a href="trending.html" class="rail-link">See all →</a>
+    </div>
+    <div class="rail-track" id="railTrending"></div>
+  </section>
+
+  <!-- ================= LATEST ================= -->
+  <section class="rail" id="latest">
+    <div class="rail-head">
+      <h2 class="rail-title">Latest Episodes</h2>
+      <a href="latest.html" class="rail-link">See all →</a>
+    </div>
+    <div class="rail-track" id="railLatest"></div>
+  </section>
+
+  <!-- ================= dynamic genre rails ================= -->
+  <div id="dynamicGenreRails"></div>
+
+  <div class="empty-state" id="homeEmptyState" style="display:none; padding:60px 20px;">
+    No series have been added yet. Once the admin adds one, it will show up here automatically.
+  </div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="home.html" class="brand">
+        <img src="assets/logo.jpg" alt="Spirit Studio" />
+        <span class="brand-word"><span>SPIRIT</span> <span class="flame-text">STUDIO</span></span>
+      </a>
+      <p>Free anime streaming — new episodes added every week, sub &amp; dub, in one place.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Browse</h4>
+        <a href="trending.html">Trending</a>
+        <a href="latest.html">Latest Episodes</a>
+        <a href="genres.html">Genres</a>
+      </div>
+      <div class="footer-col">
+        <h4>Genres</h4>
+        <a href="#">Action</a>
+        <a href="#">Isekai</a>
+        <a href="#">Romance</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Spirit Studio. All series belong to their respective studios.</span>
+    <span>Made for anime fans, by anime fans.</span>
+  </div>
+</footer>
+
+<script type="module" src="js/home-page.js"></script>
+<script type="module">
+  import { showAdminPlusIcon } from "./js/header-admin.js";
+  showAdminPlusIcon();
+</script>
+</body>
+</html>

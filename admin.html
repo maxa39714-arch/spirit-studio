@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Admin — Spirit Studio</title>
+<link rel="icon" href="assets/logo.jpg" />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  body{background:var(--void);}
+  .admin-shell{display:flex; min-height:100vh;}
+  .admin-side{
+    width:230px; flex:0 0 auto;
+    background:var(--deep); border-right:1px solid var(--line);
+    padding:22px 16px; display:flex; flex-direction:column; gap:6px;
+  }
+  .admin-side .brand{margin-bottom:24px; padding:0 6px;}
+  .admin-side .brand img{height:30px;}
+  .admin-side .brand-word{font-size:16px;}
+  .side-link{
+    padding:11px 14px; border-radius:8px; font-size:13.5px; font-weight:700;
+    color:var(--text-lo); display:flex; align-items:center; gap:10px;
+  }
+  .side-link.active, .side-link:hover{background:var(--panel-hi); color:var(--text-hi);}
+  .side-link svg{width:17px;height:17px;}
+  .admin-main{flex:1; padding:28px clamp(18px,3vw,40px); max-width:1100px;}
+  .admin-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:26px; flex-wrap:wrap; gap:10px;}
+  .admin-top h1{font-family:'Anton',sans-serif; font-size:26px;}
+  .admin-top p{color:var(--text-dim); font-size:13px; margin-top:4px;}
+
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:22px; margin-bottom:22px;}
+  .panel h2{font-size:15px; margin-bottom:6px;}
+  .panel .hint{font-size:12px; color:var(--text-dim); margin-bottom:16px;}
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .form-grid .full{grid-column:1/-1;}
+  label{display:block; font-size:12px; font-weight:700; color:var(--text-lo); margin-bottom:6px;}
+  input, textarea, select{
+    width:100%; background:var(--void); border:1px solid var(--line); border-radius:8px;
+    padding:10px 12px; color:var(--text-hi); font-family:inherit; font-size:13.5px;
+  }
+  input[type="file"]{padding:8px 10px; font-size:12.5px;}
+  textarea{resize:vertical; min-height:70px;}
+  .btn-save{
+    margin-top:16px; padding:11px 22px; border-radius:8px; font-weight:700; font-size:13.5px;
+    background:linear-gradient(100deg,var(--flame-1),var(--flame-2)); color:#1A0800;
+  }
+  .btn-save:disabled{opacity:.55; cursor:not-allowed;}
+
+  .video-type-row{display:flex; gap:20px; flex-wrap:wrap; padding:4px 0;}
+  .radio-opt{display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:var(--text-lo); cursor:pointer;}
+  .radio-opt input{width:auto; accent-color:var(--flame-1);}
+
+  .field-msg{font-size:11.5px; margin-top:6px;}
+  .field-msg.error{color:#FF8A80;}
+  .field-msg.ok{color:#6FD68A;}
+  .field-msg.progress{color:var(--flame-2);}
+
+  .form-error{
+    font-size:12.5px; color:#FF8A80; background:rgba(255,90,31,.08);
+    border:1px solid rgba(255,90,31,.25); padding:9px 12px; border-radius:8px;
+    margin-top:14px; display:none;
+  }
+
+  .series-list{display:flex; flex-direction:column; gap:10px;}
+  .series-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px 14px; border:1px solid var(--line); border-radius:8px; background:var(--void);
+    cursor:pointer;
+  }
+  .series-row:hover{border-color:rgba(255,146,60,.4);}
+  .series-row.selected{border-color:var(--flame-1); background:rgba(255,90,31,.06);}
+  .series-row-left{display:flex; align-items:center; gap:12px; min-width:0;}
+  .series-row-thumb{width:42px;height:58px;border-radius:6px;flex:0 0 auto;background:var(--panel-hi);overflow:hidden;}
+  .series-row-thumb img{width:100%;height:100%;object-fit:cover;}
+  .series-row-name{font-weight:700; font-size:13.5px;}
+  .series-row-meta{font-size:11.5px; color:var(--text-dim); margin-top:2px;}
+  .row-actions{display:flex; gap:8px; flex:0 0 auto;}
+  .row-actions button{font-size:11.5px; font-weight:700; padding:5px 10px; border-radius:6px; border:1px solid var(--line); color:var(--text-lo);}
+  .row-actions button:hover{color:var(--text-hi);}
+  .row-actions button.danger:hover{color:#FF8A80; border-color:rgba(255,90,31,.4);}
+
+  .ep-list{display:flex; flex-direction:column; gap:8px; margin-top:14px;}
+  .ep-row{display:flex; align-items:center; justify-content:space-between; padding:9px 12px; background:var(--void); border:1px solid var(--line); border-radius:7px; font-size:13px;}
+  .ep-row-tag{font-size:10.5px; font-weight:800; color:var(--flame-2); background:rgba(255,178,56,.1); border:1px solid rgba(255,178,56,.25); padding:2px 8px; border-radius:5px;}
+  .ep-edit-btn, .ep-delete-btn{font-size:11px; font-weight:700; padding:4px 9px; border-radius:6px; border:1px solid var(--line); color:var(--text-lo);}
+  .ep-edit-btn:hover{color:var(--text-hi);}
+  .ep-delete-btn:hover{color:#FF8A80; border-color:rgba(255,90,31,.4);}
+
+  #adminGate{display:flex; min-height:100vh; align-items:center; justify-content:center; color:var(--text-dim); font-size:14px;}
+  .admin-content{display:none;}
+
+  @media (max-width:800px){
+    .admin-shell{flex-direction:column;}
+    .admin-side{width:100%; flex-direction:row; overflow-x:auto; border-right:none; border-bottom:1px solid var(--line); padding:14px;}
+    .admin-side .brand{display:none;}
+    .form-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div id="adminGate">Checking access…</div>
+
+<div class="admin-content" id="adminContent">
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <a href="admin.html" class="brand">
+        <img src="assets/logo.jpg" alt="" />
+        <span class="brand-word"><span>SPIRIT</span></span>
+      </a>
+      <a href="#series" class="side-link active" data-tab="series">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Series &amp; Episodes
+      </a>
+      <a href="home.html" class="side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2 7-7 7 7 2 2"/><path d="M5 10v10h14V10"/></svg>
+        View Site
+      </a>
+      <button class="side-link" id="btnLogout" style="margin-top:auto;text-align:left;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Sign Out
+      </button>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-top">
+        <div>
+          <h1>Series &amp; Episodes</h1>
+          <p>Create a series folder, then add episodes inside it. Everything you save here goes live on the site immediately.</p>
+        </div>
+        <span id="adminEmailTag" style="font-size:12px;color:var(--text-dim);"></span>
+      </div>
+
+      <!-- STEP 1: create series folder -->
+      <div class="panel">
+        <h2>1 · Create a new series folder</h2>
+        <p class="hint">Fill in the details below and click "Create Series Folder".</p>
+        <form id="seriesForm" class="form-grid">
+          <div>
+            <label>Title *</label>
+            <input type="text" id="sTitle" placeholder="e.g. Ember &amp; Ash" required />
+          </div>
+          <div>
+            <label>Type</label>
+            <select id="sType">
+              <option>TV</option>
+              <option>Movie</option>
+              <option>OVA</option>
+            </select>
+          </div>
+          <div>
+            <label>Genres (comma separated)</label>
+            <input type="text" id="sGenres" placeholder="action, fantasy" />
+          </div>
+          <div>
+            <label>Status</label>
+            <select id="sStatus">
+              <option>Ongoing</option>
+              <option>Completed</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>Synopsis</label>
+            <textarea id="sSynopsis" placeholder="Short description of the series…"></textarea>
+          </div>
+
+          <div class="full">
+            <label>Banner image URL (wide hero image, optional)</label>
+            <input type="text" id="sBanner" placeholder="https://…" />
+          </div>
+
+          <div class="full">
+            <label>Poster image URL</label>
+            <input type="text" id="sPoster" placeholder="https://…" />
+          </div>
+
+          <div class="full">
+            <div class="form-error" id="seriesFormError"></div>
+            <button type="submit" class="btn-save" id="seriesSubmitBtn">+ Create Series Folder</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 2: pick series -->
+      <div class="panel">
+        <h2>2 · Select a series to manage</h2>
+        <div class="series-list" id="seriesList">
+          <div class="empty-state" id="seriesEmpty">No series yet — create one above.</div>
+        </div>
+      </div>
+
+      <!-- STEP 3: add episode into selected series -->
+      <div class="panel" id="episodePanel" style="display:none;">
+        <h2>3 · Add episode to "<span id="selSeriesName"></span>"</h2>
+        <form id="epForm" class="form-grid">
+          <div>
+            <label>Episode number *</label>
+            <input type="number" id="eNumber" min="1" required />
+          </div>
+          <div>
+            <label>Episode title *</label>
+            <input type="text" id="eTitle" placeholder="e.g. The Last Ember" required />
+          </div>
+
+          <div class="full">
+            <label>Video link *</label>
+            <input type="text" id="eVideo" placeholder="https://…/video.mp4  or  https://…/embed/…" required />
+          </div>
+          <div class="full">
+            <label>Video type</label>
+            <div class="video-type-row">
+              <label class="radio-opt"><input type="radio" name="videoType" value="direct" checked /> Direct video link (plays in our own player)</label>
+              <label class="radio-opt"><input type="radio" name="videoType" value="embed" /> Embed link (iframe, e.g. Streamtape)</label>
+            </div>
+          </div>
+
+          <div class="full">
+            <label>Thumbnail URL (optional)</label>
+            <input type="text" id="eThumb" placeholder="https://…" />
+          </div>
+          <div class="full">
+            <div class="form-error" id="epFormError"></div>
+            <button type="submit" class="btn-save" id="epSubmitBtn">+ Add Episode</button>
+          </div>
+        </form>
+        <div class="ep-list" id="epList"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script type="module" src="js/admin-page.js"></script>
+</body>
+</html>
